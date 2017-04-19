@@ -1,4 +1,88 @@
+$fontcolor:  rgb(10%, 10%, 10%);
+$backgroundcolor: rgb(98%, 98%, 98%);
+
 body {
   font-family: "Roboto", sans-serif;
-  background: darken(white, 0.2);
+  color: $fontcolor;
+  background-color: $backgroundcolor;
+  margin: 50px;
+}
+
+#search-bar {
+  margin-bottom: 20px;
+
+  input {
+    font-size: 1.5em;
+    border-radius: .25em;
+  }
+}
+
+#video-section {
+  display: flex;
+
+  li {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    color: white;
+  }
+  li:hover {
+    background: red;
+  }
+
+}
+
+//https://css-tricks.com/three-sided-border/
+
+.details {
+  background-color: black;
+  border-top: 5px solid red;
+  border-left: 5px solid red;
+  border-bottom: 5px solid red;
+  color: white;
+  padding-bottom: 10.4em;
+}
+
+#heading {
+  font-weight: 600;
+  font-size: 20px;
+  margin-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#subheading {
+  margin-top: 10px;
+  font-style: italic;
+  padding-left: 10px;
+  padding-right: 10px;
+
+}
+
+#img {
+  margin-bottom: 8px;
+}
+
+#videolist {
+  background-color: black;
+  border: 5px solid red;
+}
+
+@media only screen and (max-width: 640px) {
+
+  #main {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  #video-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+  }
 }

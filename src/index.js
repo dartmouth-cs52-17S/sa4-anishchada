@@ -1,22 +1,49 @@
-// console.log('starting up!');
-
-// const $ = require('jquery');
-
-// change require to es6 import style
-
-// Utilized code provided in assignment description throughout this assignment - thank you to Tim and all the TAs
-
-import $ from 'jquery';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import debounce from 'lodash.debounce';
+import SearchBar from './components/search_bar';
+import youtubeSearch from './youtube-api';
+import VideoList from './components/video_list';
+import VideoDetail from './components/video_detail';
 import './style.scss';
 
-// Referenced https://www.w3schools.com/jsref/met_win_setinterval.asp
-// Referenced https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_win_setinterval2
-// Maybe make t a local variable and use let, and take var myVar out because its not necessary?x
+class App extends React.Component {
+  constructor(props) {
+    super(props);
 
-let t = 0;
-function myTimer() {
-  t += 1;
-  $('#main').html(`You have been here for ${t} seconds`);
+    this.state = {
+      videos: [],
+      selectedVideo: null,
+    };
+    this.search('pixar');
+    this.search = debounce(this.search, 300);
+  }
+
+  search(text) {
+    youtubeSearch(text).then((videos) => {
+      this.setState({
+        videos,
+        selectedVideo: videos[0],
+      });
+    });
+  }
+  render() {
+    return (
+      <div id="main">
+        <SearchBar onSearchChange={text => this.search(text)} />
+        <div id="video-section">
+          <div><VideoDetail video={this.state.selectedVideo} /></div>
+          <div><VideoList onVideoSelect={selectedVideo => this.setState({ selectedVideo })} videos={this.state.videos} /></div>
+        </div>
+      </div>
+    );
+  }
 }
-// const myVar =
-setInterval(() => { myTimer(); }, 1000);
+
+ReactDOM.render(<App />, document.getElementById('main'));
+
+// Cannot read config file: /Users/Anish/Desktop/CS52/sa4-anishchada/.eslintrc Error: duplicated mapping key at line 21, column 57: ... olved": [2, { "commonjs": true}], ^
+// "import/no-unresolved": [2, { "commonjs": true}],
+// Removed the above from line 21
+
+// AIzaSyBfhGCeANsORrLEGIEHAr-B8HBtkiW5ETk
